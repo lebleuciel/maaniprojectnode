@@ -1,0 +1,54 @@
+version: '3.5'
+
+services:
+  # Retreival Container
+  retreival:
+    container_name: maaniretreival
+    build:
+      context: ./../golang
+      dockerfile: Dockerfile
+    image: maani:latest
+    entrypoint: /opt/maani/retreival
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    restart: on-failure
+    volumes:
+      - ./settings.yml:/opt/maani/settings.yml  # Mount local settings.yml into the container
+    networks: 
+      - maani-network  
+  # maaninode Container
+  maaninode:
+    container_name: maaninode
+    build:
+      context: .
+      dockerfile: Dockerfile node
+    image: maaninode:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: on-failure
+    volumes:
+      - ./settings.yml:/opt/maani/settings.yml  # Mount local settings.yml into the container
+    networks: 
+      - maani-network
+  # TimescaleDB Database
+  db:
+    container_name: maaninode-db
+    image: timescale/timescaledb:2.9.2-pg14
+    env_file:
+      - .env.compose
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "54320:5432"
+    restart: unless-stopped
+    networks: 
+      - maani-network
+volumes:
+  postgres:
+networks:
+  maani-network:
+    driver: bridge
