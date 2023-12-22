@@ -17,7 +17,7 @@ services:
     volumes:
       - ./settings.yml:/opt/maani/settings.yml  # Mount local settings.yml into the container
     networks: 
-      - maani-network  
+      - maaninode-network  
   # maaninode Container
   maaninode:
     container_name: maaninode
@@ -33,7 +33,7 @@ services:
     volumes:
       - ./settings.yml:/opt/maani/settings.yml  # Mount local settings.yml into the container
     networks: 
-      - maani-network
+      - maaninode-network
   # TimescaleDB Database
   db:
     container_name: maaninode-db
@@ -41,14 +41,14 @@ services:
     env_file:
       - .env.compose
     volumes:
-      - postgres:/data/postgres
+      - nodepostgres:/data/postgres
     ports:
       - "54320:5432"
-    restart: unless-stopped
+    restart: unless-stopped 
     networks: 
-      - maani-network
+      - maaninode-network
 volumes:
-  postgres:
+  nodepostgres:
 networks:
-  maani-network:
+  maaninode-network:
     driver: bridge
