@@ -5,7 +5,7 @@ global:
   writeTimeout: 2m
   idleTimeout: 2m
   maxHeaderBytes: 8196
-  backendPort: 9000
+  backendPort: 8081
   adminPort: 9001
   gatewayPort: 8000
   environment: release # supports: "debug" or "release" or "test"
@@ -24,7 +24,7 @@ database:
   maxIdleConnections: 20
   connMaxLifetime: 60s
 retreival:
-  storeHost: http://store
+  storeHost: http://maaninode
   tokenTimeout: 1h
   refreshTokenTimeout: 3h
   userIdHeaderKey: X-MAANI-USER

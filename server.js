@@ -1,21 +1,21 @@
-const cors = require("cors");
-const express = require("express");
-const app = express();
+const cors = require('cors')
+const express = require('express')
+const app = express()
 
-global.__basedir = __dirname;
+global.__basedir = __dirname
 
 var corsOptions = {
-  origin: "http://localhost:8081"
-};
+  origin: 'http://localhost:8081',
+}
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions))
 
-const initRoutes = require("./src/routes");
+const initRoutes = require('./src/routes')
 
-app.use(express.urlencoded({ extended: true }));
-initRoutes(app);
+app.use(express.urlencoded({ extended: true }))
+initRoutes(app)
 
-let port = 8080;
+let port = 8081
 app.listen(port, () => {
-  console.log(`Running at localhost:${port}`);
-});
+  console.log(`Running at localhost:${port}`)
+})

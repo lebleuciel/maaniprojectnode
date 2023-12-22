@@ -23,10 +23,10 @@ services:
     container_name: maaninode
     build:
       context: .
-      dockerfile: Dockerfile node
+      dockerfile: Dockerfile
     image: maaninode:latest
     ports:
-      - "8080:8080"
+      - "8081:8081"
     depends_on:
       - db
     restart: on-failure
